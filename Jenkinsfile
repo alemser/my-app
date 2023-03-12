@@ -4,7 +4,7 @@ pipeline {
      agent {
          docker {
              image 'node:lts-bullseye-slim'
-             args '-e HOME=/tmp/home'
+             args '-u root:root'
          }
      }
      stages {
