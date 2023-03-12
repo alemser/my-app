@@ -14,11 +14,13 @@ pipeline {
                 sh "npm run build"
             }
         }
-        stage("Deploy") {
-            steps {
-                sh "export AWS_DEFAULT_REGION=eu-west-1"
-                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'aws-key', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-                    AWS("aws s3 sync build/ s3://my-app.alemser.link")
+        node {
+            stage("Deploy") {
+                steps {
+                    sh "export AWS_DEFAULT_REGION=eu-west-1"
+                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'aws-key', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                        AWS("aws s3 sync build/ s3://my-app.alemser.link")
+                    }
                 }
             }
         }
