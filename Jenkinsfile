@@ -10,6 +10,7 @@ pipeline {
      stages {
         stage("Build") {
             steps {
+                sh "su -"
                 sh "apt install sudo"
                 sh "apt install curl"
                 sh "apt install unzip"
