@@ -17,7 +17,12 @@ pipeline {
         stage("Deploy") {
             steps {
                 sh "export AWS_DEFAULT_REGION=eu-west-1"
-                withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
+                    credentialsId: 'deploy-s3'
+                ]]) {
                     sh "aws s3 sync build/ s3://my-app.alemser.link"
                 }
             }
