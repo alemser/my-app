@@ -14,13 +14,11 @@ pipeline {
                 sh "npm run build"
             }
         }
-        node {
-            stage("Deploy") {
-                steps {
-                    sh "export AWS_DEFAULT_REGION=eu-west-1"
-                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'aws-key', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-                        AWS("aws s3 sync build/ s3://my-app.alemser.link")
-                    }
+        stage("Deploy") {
+            steps {
+                sh "export AWS_DEFAULT_REGION=eu-west-1"
+                withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {
+                    sh "aws s3 sync build/ s3://my-app.alemser.link"
                 }
             }
         }
