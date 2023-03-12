@@ -1,3 +1,5 @@
+@Library('github.com/releaseworks/jenkinslib') _
+
 pipeline {
      agent {
          docker {
@@ -14,7 +16,10 @@ pipeline {
         }
         stage("Deploy") {
             steps {
-                sh "npm run deploy"
+                sh "export AWS_DEFAULT_REGION=eu-west-1"
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'aws-key', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                    AWS("aws s3 sync build/ s3://my-app.alemser.link")
+                }
             }
         }
     }
