@@ -3,15 +3,15 @@
 pipeline {
      agent {
          docker {
-             image 'node:alpine'
-             args '-p 3000:3000'
+             image 'node:lts-bullseye-slim'
+             args '-p 3000:3000 -e HOME=/tmp/home'
          }
      }
      stages {
         stage("Build") {
             steps {
-                sh "sudo apk add curl"
-                sh "sudo apk add unzip"
+                sh "apt install curl"
+                sh "apt install unzip"
                 sh "curl 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' -o 'awscliv2.zip'"
                 sh "unzip awscliv2.zip"
                 sh "./aws/install"
