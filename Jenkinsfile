@@ -9,7 +9,7 @@ pipeline {
      stages {
         stage("Build") {
             steps {
-                sh "chown -R jenkins /var/jenkins_home/workspace"
+                sh "chown -R 1000 /var/jenkins_home/workspace"
                 sh "npm install"
                 sh "npm run build"
             }
