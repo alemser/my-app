@@ -4,6 +4,10 @@ pipeline {
      agent {
          docker {
              image 'alemser/nodeplus'
+             sh "cd /var/jenkins_home/workspace"
+             sh "sudo chown -R jenkins folderName"
+             sh "sudo setfacl -R -m user:jenkins:rwx folderName"
+
              args '-u root:root'
          }
      }
