@@ -10,7 +10,8 @@ pipeline {
      stages {
         stage("Build") {
             steps {
-                sh "npm install --unsafe-perm"
+                sh "node-gyp rebuild -g --unsafe-perm"
+                sh "npm install"
                 sh "npm run build"
             }
         }
