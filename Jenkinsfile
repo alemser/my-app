@@ -11,7 +11,8 @@ pipeline {
         stage("Build") {
             steps {
                cache(maxCacheSize: 250, defaultBranch: 'develop', caches:
-                   [arbitraryFileCache(path: '/var/jenkins_home/workspace/my-app/node_modules', cacheValidityDecidingFile: 'package-lock.json')]
+                   [arbitraryFileCache(path: '/var/jenkins_home/workspace/my-app/node_modules',
+                                       cacheValidityDecidingFile: '/var/jenkins_home/workspace/my-app/package-lock.json')]
                    ) {
                        sh "npm install"
                 }
@@ -27,7 +28,7 @@ pipeline {
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
                     credentialsId: 'deploy-s3'
                 ]]) {
-                    sh "aws s3 sync build/ s3://my-app.alemser.link"
+                    //sh "aws s3 sync build/ s3://my-app.alemser.link"
                 }
             }
         }
