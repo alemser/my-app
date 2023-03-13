@@ -10,13 +10,13 @@ pipeline {
      stages {
         stage("Build") {
             steps {
-               //cache(maxCacheSize: 250, defaultBranch: 'develop', caches:
-               //    [arbitraryFileCache(path: 'node_modules', cacheValidityDecidingFile: 'package-lock.json')]
-               //    ) {
-               //        sh "npm install"
-               //}
-                sh "npm install"
-                sh "npm run build"
+               cache(maxCacheSize: 250, defaultBranch: 'develop', caches:
+                   [arbitraryFileCache(path: 'node_modules', cacheValidityDecidingFile: 'package-lock.json')]
+                   ) {
+                       sh "npm install"
+               }
+               //sh "npm install"
+               sh "npm run build"
             }
         }
         stage("Deploy") {
