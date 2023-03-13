@@ -3,7 +3,7 @@
 pipeline {
      agent {
          docker {
-             image 'node:lts-bullseye-slim'
+             image 'alemser/nodeplus'
              args '-u root:root'
          }
      }
