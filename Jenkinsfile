@@ -9,10 +9,7 @@ pipeline {
      stages {
         stage("Build") {
             steps {
-                sh "cd /var/jenkins_home/workspace"
-                sh "sudo chown -R jenkins folderName"
-                sh "sudo setfacl -R -m user:jenkins:rwx folderName"
-
+                sh "chown -R jenkins /var/jenkins_home/workspace"
                 sh "npm install"
                 sh "npm run build"
             }
