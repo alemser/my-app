@@ -10,12 +10,7 @@ pipeline {
      stages {
         stage("Build") {
             steps {
-               cache(maxCacheSize: 250, defaultBranch: 'develop', caches:
-                   [arbitraryFileCache(path: 'node_modules', cacheValidityDecidingFile: 'package-lock.json', compressionMethod: 'TARGZ')]
-                   ) {
-                       sh "npm install"
-               }
-               //sh "npm install"
+               sh "npm install"
                sh "npm run build"
             }
         }
@@ -28,7 +23,7 @@ pipeline {
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
                     credentialsId: 'deploy-s3'
                 ]]) {
-                    //sh "aws s3 sync build/ s3://my-app.alemser.link"
+                    sh "aws s3 sync build/ s3://my-app.alemser.link"
                 }
             }
         }
