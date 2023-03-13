@@ -4,13 +4,12 @@ pipeline {
      agent {
          docker {
              image 'alemser/nodeplus'
-             //args '-u root:root'
+             args '-u root:root'
          }
      }
      stages {
         stage("Build") {
             steps {
-                sh "node-gyp rebuild -g --unsafe-perm"
                 sh "npm install"
                 sh "npm run build"
             }
