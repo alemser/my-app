@@ -4,6 +4,7 @@ pipeline {
      agent {
          docker {
              image 'alemser/nodeplus'
+             args '-u root:root'
          }
      }
      stages {
